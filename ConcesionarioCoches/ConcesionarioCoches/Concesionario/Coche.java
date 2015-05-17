@@ -3,6 +3,8 @@ package Concesionario;
 import java.io.Serializable;
 import java.util.regex.Pattern;
 
+//Esta clase ha sido modificada por Daniel Lozano Torrico
+
 public class Coche implements Serializable{
 	private String matricula;
 	private Color color;
