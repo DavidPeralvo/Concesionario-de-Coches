@@ -1,11 +1,9 @@
 package Concesionario;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
-/**
- * En esta clase se crea el objeto coche con todos sus atributos.
- * @author David Peralvo
- */
-public class Coche {
+
+public class Coche implements Serializable{
 	private String matricula;
 	private Color color;
 	private Modelo modelo;
@@ -18,11 +16,8 @@ public class Coche {
 		setColor(color);
 		setModelo(modelo);
 	}
-	/**
-	 * Se trata del metodo privado coche 
-	 * @param matricula
-	 */
-	Coche(String matricula) {
+
+	private Coche(String matricula) {
 		setMatricula(matricula);
 	}
 
@@ -31,59 +26,33 @@ public class Coche {
 			return new Coche(matricula, color, modelo);
 		return null;
 	}
-	/**
-	 * Si la matricula es valida este metodo crea el coche.
-	 * @param matricula
-	 * @return new Coche
-	 * @return null
-	 */
+
 	static Coche instanciarCoche(String matricula) {
 		if (esValida(matricula))
 			return new Coche(matricula);
 		return null;
 	}
-	/**
-	 * Este metodo compara la matricula introducida con el patron que imponemos
-	 * @param matricula
-	 * @return patternMatricula.matcher(matricula).matches()
-	 */
-	private static boolean esValida(String matricula) {
+
+	public static boolean esValida(String matricula) {
 		return patternMatricula.matcher(matricula).matches();
 	}
-	/**
-	 * Se trata del metodo el cual se asigna matricula al objeto coche.
-	 * @param matricula
-	 */
+
 	private void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
-	/**
-	 * Se trata del metodo que devuelve el color del coche.
-	 * @return color
-	 */
-	Color getColor() {
+
+	public Color getColor() {
 		return color;
 	}
-	/**
-	 * Se trata del metodo el cual se asigna el color al objeto coche.
-	 * @param color
-	 */
+
 	private void setColor(Color color) {
 		this.color = color;
 	}
-	/**
-	 * Se trata del metodo el cual se asigna modelo al objeto.
-	 * @param modelo
-	 */
+
 	private void setModelo(Modelo modelo) {
 		this.modelo = modelo;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -93,12 +62,7 @@ public class Coche {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
+	
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -115,18 +79,18 @@ public class Coche {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	/**
-	 * Se trata del metodo toString de coche.
-	 */
+	
+	
 	public String toString() {
 		return "\nCoche [matricula=" + matricula + ", color=" + color
 				+ ", modelo=" + modelo + "]";
+	}
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public String getMatricula() {
+		return matricula;
 	}
 
 }

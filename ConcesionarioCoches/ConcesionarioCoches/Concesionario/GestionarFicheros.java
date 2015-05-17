@@ -1,4 +1,4 @@
-package Concesionario;
+package Concesionario;import gui.GuardarComo;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -8,22 +8,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import Concesionario.Concesionario;
 public class GestionarFicheros {
 	static File fichero;
+	private File ficheroModificado;
 	private static String ruta;
 	private final static JPanel contentPanel = new JPanel();
-	public static Concesionario abrirFichero(String nombreArchivo) throws IOException, ClassNotFoundException{
-		fichero = new File(nombreArchivo);
-		try(ObjectInputStream leerObjeto = new ObjectInputStream(new BufferedInputStream(new FileInputStream(comprobarExtension(fichero))))){
+	public static Concesionario abrirFichero(File fichero) throws IOException, ClassNotFoundException{
+		try(ObjectInputStream leerObjeto = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fichero)))){
 			return ((Concesionario)leerObjeto.readObject());
 		}
 	}
-	public static File comprobarExtension( File fichero){
+	public static File comprobarExtension(Concesionario concesionario, File fichero){
 		ruta=fichero.getPath();
 		if(!ruta.endsWith(".obj")){
 			return new File(fichero+".obj");}
@@ -33,10 +30,8 @@ public class GestionarFicheros {
 		
 	}
 	
-	public static void guardarComoFichero(Concesionario concesionario, String nombre) throws IOException {
-		File fichero=new File(nombre+".obj");
-		
-		try(ObjectOutputStream escribirObjeto = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(comprobarExtension( fichero))))){
+	public static void guardarComoFichero(Concesionario concesionario, File fichero) throws IOException {
+		try(ObjectOutputStream escribirObjeto = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(comprobarExtension(concesionario, fichero))))){
 				escribirObjeto.writeObject(concesionario);
 				
 			}
