@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 /**
  * En esta clase se crea el objeto coche con todos sus atributos.
  * @author David Peralvo
- *@version 1.0
  */
 public class Coche {
 	private String matricula;
@@ -23,7 +22,7 @@ public class Coche {
 	 * Se trata del metodo privado coche 
 	 * @param matricula
 	 */
-	private Coche(String matricula) {
+	Coche(String matricula) {
 		setMatricula(matricula);
 	}
 

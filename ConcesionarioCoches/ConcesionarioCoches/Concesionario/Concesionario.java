@@ -2,6 +2,13 @@ package Concesionario;
 
 import java.util.ArrayList;
 
+import Concesionario.Coche;
+import Concesionario.CocheNoExisteException;
+import Concesionario.CocheYaExisteException;
+import Concesionario.ColorNoValidoException;
+import Concesionario.MatriculaNoValidaException;
+import Concesionario.ModeloNoValidoException;
+
 /**
  * Se trata de la clase concesionario donde se creara el envoltorio del concesionario
  * En esta clase se recogen todas las opcines posibles del arraylist
@@ -20,19 +27,27 @@ public class Concesionario {
 	 * @return null
 	 * @return almacen.add(coche)
 	 */
-	boolean annadir(String matricula, Color color, Modelo modelo) {
+	void annadir(String matricula, Color color, Modelo modelo) 
+		throws MatriculaNoValidaException, ColorNoValidoException,
+		ModeloNoValidoException, CocheYaExisteException {
 		Coche coche = Coche.instanciarCoche(matricula, color, modelo);
 		if (coche == null || almacen.contains(coche))
-			return false;
-		return almacen.add(coche);
+			throw new CocheYaExisteException("El coche ya existe en el concesionario");
+		almacen.add(coche);
 	}
 	/**
 	 * Se trata del metodo booleano para borrar coches del arraylist.
 	 * @param matricula
 	 * @return almacen.remove(Coche.instanciarCoche(matricula))
 	 */
-	boolean eliminar(String matricula) {
-		return almacen.remove(Coche.instanciarCoche(matricula));
+	void eliminar(String matricula)throws MatriculaNoValidaException,
+	CocheNoExisteException {
+		Coche coche = new Coche(matricula);
+		if (almacen.contains(coche))
+			almacen.remove(coche);
+		else
+			throw new CocheNoExisteException(
+					"El coche no existe");
 	}
 
 	/**
@@ -49,13 +64,17 @@ public class Concesionario {
 	 * @return null
 	 * @return almacen.get(index)
 	 */
-	Coche get(String matricula) {
+	Coche get(String matricula)throws MatriculaNoValidaException,
+	CocheNoExisteException {
 		Coche coche = Coche.instanciarCoche(matricula);
 		int index = almacen.indexOf(coche);
 		if (index != -1) {
 			return almacen.get(index);
 		}
-		return null;
+		else{
+			throw new CocheNoExisteException(
+					"El coche no esta en el concesionario");
+		}
 	}
 
 	/*
